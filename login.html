@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ContentBase | Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="logo-text">AI ContentBase</a>
+        </div>
+        <div class="nav-right">
+            <select class="lang-switch" style="margin-right: 12px;">
+                <option value="en">EN</option>
+                <option value="th">TH</option>
+            </select>
+            <a href="index.html" style="font-size: 0.9rem; font-weight: 500; color: var(--text-muted);"
+                data-i18n="nav_home">Back to Home</a>
+        </div>
+    </nav>
+
+    <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+        <div class="card" style="width: 100%; max-width: 400px; padding: 40px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px;">Welcome Back</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to your AI ContentBase account</p>
+            </div>
+
+            <form id="loginForm">
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; color: var(--text-muted);">Email
+                        Address</label>
+                    <input type="email" placeholder="name@example.com"
+                        style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-light); color: white; font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
+                        required>
+                </div>
+
+                <div style="margin-bottom: 24px;">
+                    <label
+                        style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; color: var(--text-muted);">
+                        Password
+                        <a href="#" style="color: #60a5fa;">Forgot?</a>
+                    </label>
+                    <input type="password" placeholder="••••••••"
+                        style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-light); color: white; font-size: 0.9rem; outline: none; transition: border-color 0.2s;"
+                        required>
+                </div>
+
+                <div
+                    style="margin-bottom: 24px; display: flex; gap: 8px; padding: 12px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px;">
+                    <i class="fa-solid fa-circle-info" style="color: #60a5fa; margin-top: 2px;"></i>
+                    <p style="font-size: 0.8rem; color: #93c5fd; margin: 0;"><strong>Demo Hint:</strong> Use
+                        "admin@test.com" to go to the Admin panel, or "data@test.com" for the Data Analyst panel.</p>
+                </div>
+
+                <button type="submit" class="btn-primary"
+                    style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; margin-bottom: 20px;">Sign
+                    In</button>
+
+                <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; position: relative;">
+                    <span style="background: var(--surface); padding: 0 10px; position: relative; z-index: 1;">Or
+                        continue with</span>
+                    <hr
+                        style="position: absolute; top: 50%; width: 100%; border: none; border-top: 1px solid var(--border); margin: 0; z-index: 0;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;">
+                    <button type="button" class="btn-outline"
+                        style="padding: 10px; border-radius: 8px; font-weight: 500; font-size: 0.9rem;"><i
+                            class="fa-brands fa-google"></i> Google</button>
+                    <button type="button" class="btn-outline"
+                        style="padding: 10px; border-radius: 8px; font-weight: 500; font-size: 0.9rem;"><i
+                            class="fa-brands fa-github"></i> GitHub</button>
+                </div>
+            </form>
+
+            <p style="text-align: center; margin-top: 30px; font-size: 0.9rem; color: var(--text-muted);">
+                Don't have an account? <a href="register.html" style="color: white; font-weight: 500;">Sign up</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const emailInput = e.target.querySelector('input[type="email"]').value.toLowerCase();
+            const passwordInput = e.target.querySelector('input[type="password"]').value;
+
+            // Save login state
+            localStorage.setItem('userEmail', emailInput);
+
+            if (emailInput === 'admin@test.com' && passwordInput === 'admin') {
+                window.location.href = 'admin.html';
+            } else if (emailInput === 'data@test.com' && passwordInput === 'data') {
+                window.location.href = 'data_analyst.html';
+            } else {
+                alert('Login successful! Welcome back.');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

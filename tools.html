@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI ContentBase | AI Tools Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="logo-text">AI ContentBase</a>
+        </div>
+        <div class="nav-center">
+            <a href="index.html" data-i18n="nav_home">Home</a>
+            <a href="tools.html" class="active" data-i18n="nav_tools">Tools</a>
+            <a href="courses.html" data-i18n="nav_courses">Courses</a>
+            <a href="news.html" data-i18n="nav_news">News</a>
+        </div>
+        <div class="nav-right">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <select class="lang-switch">
+                <option value="en">EN</option>
+                <option value="th">TH</option>
+            </select>
+            <button class="btn-primary" data-i18n="nav_get_started">Get Started</button>
+        </div>
+    </nav>
+
+    <section class="container" style="padding-top: 60px;">
+        <div class="section-header-left">
+            <div>
+                <h2>AI <span class="text-gradient">Tools Directory</span></h2>
+                <p>Top-rated AI tools and software handpicked for creators & devs.</p>
+            </div>
+        </div>
+
+        <div class="filters filters-left">
+            <button class="filter-btn active" data-i18n="cat_all" data-filter="all">All</button>
+            <button class="filter-btn" data-i18n="cat_chatbot" data-filter="chatbot">Chatbot</button>
+            <button class="filter-btn" data-i18n="cat_image" data-filter="image gen">Image Gen</button>
+            <button class="filter-btn" data-i18n="cat_coding" data-filter="coding">Coding</button>
+        </div>
+
+        <div class="grid-3">
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #10b981;"><i class="fa-solid fa-robot"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">ChatGPT</div>
+                        <div class="tool-cat">Chatbot</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <p class="tool-desc">The world's most popular AI chatbot for writing, coding, analysis, and more.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Writing</span>
+                    <span class="tool-tag">Coding</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">Free / $20/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #d946ef;"><i class="fa-solid fa-palette"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">Midjourney</div>
+                        <div class="tool-cat">Image Gen</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                </div>
+                <p class="tool-desc">Create breathtaking AI art with simple text prompts.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Art</span>
+                    <span class="tool-tag">Design</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">$10/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #3b82f6;"><i class="fa-solid fa-code"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">Cursor</div>
+                        <div class="tool-cat">Coding</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <p class="tool-desc">AI-first code editor that writes, refactors, and debugs code alongside you.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Coding</span>
+                    <span class="tool-tag">IDE</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">Free / $20/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #f97316;"><i class="fa-solid fa-book"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">Claude 3</div>
+                        <div class="tool-cat">Chatbot</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
+                </div>
+                <p class="tool-desc">Anthropic's powerful AI assistant, known for its massive context window, nuanced
+                    writing, and advanced reasoning capabilities.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Writing</span>
+                    <span class="tool-tag">Analysis</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">Free / $20/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #14b8a6;"><i class="fa-solid fa-globe"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">Perplexity AI</div>
+                        <div class="tool-cat">Chatbot</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.8</div>
+                </div>
+                <p class="tool-desc">An AI-powered search engine that provides direct, cited answers to your questions
+                    by browsing the web in real-time.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Search</span>
+                    <span class="tool-tag">Research</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">Free / $20/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="card tool-card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #8b5cf6;"><i class="fa-brands fa-github"></i></div>
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">GitHub Copilot</div>
+                        <div class="tool-cat">Coding</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.7</div>
+                </div>
+                <p class="tool-desc">Your AI pair programmer that suggests code and entire functions in real-time right
+                    from your editor.</p>
+                <div class="tool-tags">
+                    <span class="tool-tag">Coding</span>
+                    <span class="tool-tag">Productivity</span>
+                </div>
+                <div class="tool-footer">
+                    <div class="tool-price">$10/mo</div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <div data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
