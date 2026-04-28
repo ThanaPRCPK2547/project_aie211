@@ -12,6 +12,21 @@
 
 <body>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-inner">
+            <div class="search-overlay-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-overlay-input" id="searchOverlayInput" placeholder="Search courses...">
+                <button class="search-overlay-close" id="searchOverlayClose">ESC</button>
+            </div>
+            <p class="search-hint">Press <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">Enter</kbd> to search &nbsp;·&nbsp; <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">ESC</kbd> to close</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <nav>
         <div class="nav-left">
             <a href="index.html" class="logo-text">AI ContentBase</a>
@@ -23,16 +38,26 @@
             <a href="news.html" data-i18n="nav_news">News</a>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle"></i>
             <select class="lang-switch">
                 <option value="en">EN</option>
                 <option value="th">TH</option>
             </select>
             <button class="btn-primary" data-i18n="nav_get_started">Get Started</button>
+            <button class="nav-hamburger" id="navHamburger"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <section class="container" style="padding-top: 60px;">
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="courses.html" class="active" data-i18n="nav_courses">Courses</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+    </div>
+
+    <section class="page-section">
+        <div class="container">
         <div class="section-header-left">
             <div>
                 <h2 data-i18n="courses_title">AI <span class="text-gradient">Online Courses</span></h2>
@@ -41,151 +66,240 @@
         </div>
 
         <div class="filters filters-left">
-            <button class="filter-btn active" data-i18n="cat_all">All</button>
-            <button class="filter-btn" data-i18n="cat_prompt_engineering">Prompt Engineering</button>
-            <button class="filter-btn" data-i18n="cat_machine_learning">Machine Learning</button>
-            <button class="filter-btn" data-i18n="cat_ai_art">AI Art</button>
+            <button class="filter-btn active" data-filter="all" data-i18n="cat_all">All</button>
+            <button class="filter-btn" data-filter="prompt engineering" data-i18n="cat_prompt_engineering">Prompt Engineering</button>
+            <button class="filter-btn" data-filter="machine learning" data-i18n="cat_machine_learning">Machine Learning</button>
+            <button class="filter-btn" data-filter="ai art" data-i18n="cat_ai_art">AI Art</button>
         </div>
 
-        <div class="grid-3">
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #f59e0b;"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="grid-3" id="coursesGrid">
+            <!-- Card 1 -->
+            <a href="#" class="card tool-card" data-category="prompt engineering">
+                <div class="discount-badge">-40%</div>
+                <div class="course-thumb" style="background: linear-gradient(135deg, #f59e0b22, #f59e0b44);">
+                    <i class="fa-solid fa-graduation-cap" style="color:#f59e0b;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_1_title">Prompt Engineering Masterclass</div>
                         <div class="tool-cat" data-i18n="cat_prompt_engineering">Prompt Engineering</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_1_desc">From beginner to expert — learn how to craft perfect prompts for any AI model
-                    including ChatGPT and Claude.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_1_desc">From beginner to expert — learn how to craft perfect prompts for any AI model including ChatGPT and Claude.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_beginner_friendly">Beginner Friendly</span>
                     <span class="tool-tag" data-i18n="tag_certificate">Certificate</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$30.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-original">$50.00</span>
+                            <span class="price-current tool-price">$30.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 4,821 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #3b82f6;"><i class="fa-solid fa-brain"></i></div>
+            <!-- Card 2 -->
+            <a href="#" class="card tool-card" data-category="machine learning">
+                <div class="course-thumb" style="background: linear-gradient(135deg, #3b82f622, #3b82f644);">
+                    <i class="fa-solid fa-brain" style="color:#3b82f6;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_2_title">Deep Learning Specialization</div>
                         <div class="tool-cat" data-i18n="cat_machine_learning">Machine Learning</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.8</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_2_desc">Master the foundations of deep learning, understand how to build neural networks,
-                    and lead successful machine learning projects.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_2_desc">Master the foundations of deep learning, understand how to build neural networks, and lead successful machine learning projects.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_advanced">Advanced</span>
                     <span class="tool-tag" data-i18n="tag_python">Python</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$30.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-current tool-price">$30.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 3,210 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #ec4899;"><i class="fa-solid fa-image"></i></div>
+            <!-- Card 3 -->
+            <a href="#" class="card tool-card" data-category="ai art">
+                <div class="discount-badge">-33%</div>
+                <div class="course-thumb" style="background: linear-gradient(135deg, #ec489922, #ec489944);">
+                    <i class="fa-solid fa-image" style="color:#ec4899;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_3_title">AI Art Generation with Midjourney</div>
                         <div class="tool-cat" data-i18n="cat_ai_art">AI Art</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.7</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_3_desc">Learn to create stunning, professional-grade artwork and concepts using Midjourney
-                    v6.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_3_desc">Learn to create stunning, professional-grade artwork and concepts using Midjourney v6.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_design">Design</span>
                     <span class="tool-tag" data-i18n="tag_creative">Creative</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$20.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-original">$30.00</span>
+                            <span class="price-current tool-price">$20.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 2,540 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #22c55e;"><i class="fa-brands fa-python"></i></div>
+            <!-- Card 4 -->
+            <a href="#" class="card tool-card" data-category="machine learning">
+                <div class="course-thumb" style="background: linear-gradient(135deg, #22c55e22, #22c55e44);">
+                    <i class="fa-brands fa-python" style="color:#22c55e;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_4_title">Python for AI & Data Science</div>
                         <div class="tool-cat" data-i18n="cat_machine_learning">Machine Learning</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_4_desc">The ultimate Python bootcamp focused entirely on libraries needed for AI, including
-                    Pandas, NumPy, and PyTorch.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_4_desc">The ultimate Python bootcamp focused entirely on libraries needed for AI, including Pandas, NumPy, and PyTorch.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_beginner">Beginner</span>
                     <span class="tool-tag" data-i18n="tag_coding">Coding</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$20.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-current tool-price">$20.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 6,103 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #a855f7;"><i class="fa-solid fa-message"></i></div>
+            <!-- Card 5 -->
+            <a href="#" class="card tool-card" data-category="machine learning">
+                <div class="course-thumb" style="background: linear-gradient(135deg, #a855f722, #a855f744);">
+                    <i class="fa-solid fa-message" style="color:#a855f7;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_5_title">LLM App Development</div>
                         <div class="tool-cat" data-i18n="cat_machine_learning">Machine Learning</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.8</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_5_desc">Learn how to build production-ready applications powered by Large Language Models
-                    and vector databases.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_5_desc">Learn how to build production-ready applications powered by Large Language Models and vector databases.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_advanced">Advanced</span>
                     <span class="tool-tag" data-i18n="tag_backend">Backend</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$40.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-current tool-price">$40.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 1,890 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
-                <div class="card-header">
-                    <div class="card-icon" style="background: #f43f5e;"><i class="fa-solid fa-microchip"></i></div>
+            <!-- Card 6 -->
+            <a href="#" class="card tool-card" data-category="prompt engineering">
+                <div class="discount-badge">-25%</div>
+                <div class="course-thumb" style="background: linear-gradient(135deg, #f43f5e22, #f43f5e44);">
+                    <i class="fa-solid fa-microchip" style="color:#f43f5e;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:12px;">
                     <div class="tool-title-wrap">
                         <div class="tool-title" data-i18n="course_6_title">AI Agents & Automation</div>
                         <div class="tool-cat" data-i18n="cat_prompt_engineering">Prompt Engineering</div>
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <p class="tool-desc" data-i18n="course_6_desc">Create autonomous AI agents capable of reasoning, using external tools, and
-                    automating complex workflows.</p>
-                <div class="tool-tags">
+                <p class="tool-desc" data-i18n="course_6_desc">Create autonomous AI agents capable of reasoning, using external tools, and automating complex workflows.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
                     <span class="tool-tag" data-i18n="tag_intermediate">Intermediate</span>
                     <span class="tool-tag" data-i18n="tag_automation">Automation</span>
                 </div>
                 <div class="tool-footer">
-                    <div class="tool-price">$30.00</div>
-                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i
-                            class="fa-solid fa-arrow-right"></i></div>
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-original">$40.00</span>
+                            <span class="price-current tool-price">$30.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 3,450 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn" data-i18n="btn_enroll">Enroll <i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </a>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="coursesEmpty">
+                <div class="empty-state-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h3>No courses found</h3>
+                <p>Try a different filter or search term.</p>
+            </div>
+        </div>
+    </section>
+
         </div>
     </section>
 
     <footer>
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-text">AI ContentBase</a>
+                    <p>แพลตฟอร์มรวบรวม AI Tools คอร์สเรียน และข่าวสาร AI ที่ครบที่สุดในไทย</p>
+                    <div class="socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="tools.html">AI Tools</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
-                <div data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</div>
+                <span data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</span>
+                <span>Built with <i class="fa-solid fa-heart" style="color:#a855f7;font-size:0.8rem;"></i> for the AI community</span>
             </div>
         </div>
     </footer>

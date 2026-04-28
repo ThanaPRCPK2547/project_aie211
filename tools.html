@@ -12,6 +12,21 @@
 
 <body>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-inner">
+            <div class="search-overlay-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-overlay-input" id="searchOverlayInput" placeholder="Search AI tools...">
+                <button class="search-overlay-close" id="searchOverlayClose">ESC</button>
+            </div>
+            <p class="search-hint">Press <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">Enter</kbd> to search &nbsp;·&nbsp; <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">ESC</kbd> to close</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <nav>
         <div class="nav-left">
             <a href="index.html" class="logo-text">AI ContentBase</a>
@@ -23,16 +38,26 @@
             <a href="news.html" data-i18n="nav_news">News</a>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle"></i>
             <select class="lang-switch">
                 <option value="en">EN</option>
                 <option value="th">TH</option>
             </select>
             <button class="btn-primary" data-i18n="nav_get_started">Get Started</button>
+            <button class="nav-hamburger" id="navHamburger"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <section class="container" style="padding-top: 60px;">
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="tools.html" class="active" data-i18n="nav_tools">Tools</a>
+        <a href="courses.html" data-i18n="nav_courses">Courses</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+    </div>
+
+    <section class="page-section">
+        <div class="container">
         <div class="section-header-left">
             <div>
                 <h2>AI <span class="text-gradient">Tools Directory</span></h2>
@@ -41,14 +66,14 @@
         </div>
 
         <div class="filters filters-left">
-            <button class="filter-btn active" data-i18n="cat_all" data-filter="all">All</button>
-            <button class="filter-btn" data-i18n="cat_chatbot" data-filter="chatbot">Chatbot</button>
-            <button class="filter-btn" data-i18n="cat_image" data-filter="image gen">Image Gen</button>
-            <button class="filter-btn" data-i18n="cat_coding" data-filter="coding">Coding</button>
+            <button class="filter-btn active" data-filter="all" data-i18n="cat_all">All</button>
+            <button class="filter-btn" data-filter="chatbot" data-i18n="cat_chatbot">Chatbot</button>
+            <button class="filter-btn" data-filter="image gen" data-i18n="cat_image">Image Gen</button>
+            <button class="filter-btn" data-filter="coding" data-i18n="cat_coding">Coding</button>
         </div>
 
-        <div class="grid-3">
-            <a href="#" class="card tool-card">
+        <div class="grid-3" id="toolsGrid">
+            <a href="https://chat.openai.com" target="_blank" class="card tool-card" data-category="chatbot">
                 <div class="card-header">
                     <div class="card-icon" style="background: #10b981;"><i class="fa-solid fa-robot"></i></div>
                     <div class="tool-title-wrap">
@@ -64,12 +89,11 @@
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">Free / $20/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
+            <a href="https://midjourney.com" target="_blank" class="card tool-card" data-category="image gen">
                 <div class="card-header">
                     <div class="card-icon" style="background: #d946ef;"><i class="fa-solid fa-palette"></i></div>
                     <div class="tool-title-wrap">
@@ -85,12 +109,11 @@
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">$10/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
+            <a href="https://cursor.sh" target="_blank" class="card tool-card" data-category="coding">
                 <div class="card-header">
                     <div class="card-icon" style="background: #3b82f6;"><i class="fa-solid fa-code"></i></div>
                     <div class="tool-title-wrap">
@@ -106,12 +129,11 @@
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">Free / $20/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
+            <a href="https://claude.ai" target="_blank" class="card tool-card" data-category="chatbot">
                 <div class="card-header">
                     <div class="card-icon" style="background: #f97316;"><i class="fa-solid fa-book"></i></div>
                     <div class="tool-title-wrap">
@@ -120,20 +142,18 @@
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <p class="tool-desc">Anthropic's powerful AI assistant, known for its massive context window, nuanced
-                    writing, and advanced reasoning capabilities.</p>
+                <p class="tool-desc">Anthropic's powerful AI assistant, known for its massive context window, nuanced writing, and advanced reasoning capabilities.</p>
                 <div class="tool-tags">
                     <span class="tool-tag">Writing</span>
                     <span class="tool-tag">Analysis</span>
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">Free / $20/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
+            <a href="https://perplexity.ai" target="_blank" class="card tool-card" data-category="chatbot">
                 <div class="card-header">
                     <div class="card-icon" style="background: #14b8a6;"><i class="fa-solid fa-globe"></i></div>
                     <div class="tool-title-wrap">
@@ -142,20 +162,18 @@
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.8</div>
                 </div>
-                <p class="tool-desc">An AI-powered search engine that provides direct, cited answers to your questions
-                    by browsing the web in real-time.</p>
+                <p class="tool-desc">An AI-powered search engine that provides direct, cited answers to your questions by browsing the web in real-time.</p>
                 <div class="tool-tags">
                     <span class="tool-tag">Search</span>
                     <span class="tool-tag">Research</span>
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">Free / $20/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
 
-            <a href="#" class="card tool-card">
+            <a href="https://github.com/features/copilot" target="_blank" class="card tool-card" data-category="coding">
                 <div class="card-header">
                     <div class="card-icon" style="background: #8b5cf6;"><i class="fa-brands fa-github"></i></div>
                     <div class="tool-title-wrap">
@@ -164,25 +182,70 @@
                     </div>
                     <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.7</div>
                 </div>
-                <p class="tool-desc">Your AI pair programmer that suggests code and entire functions in real-time right
-                    from your editor.</p>
+                <p class="tool-desc">Your AI pair programmer that suggests code and entire functions in real-time right from your editor.</p>
                 <div class="tool-tags">
                     <span class="tool-tag">Coding</span>
                     <span class="tool-tag">Productivity</span>
                 </div>
                 <div class="tool-footer">
                     <div class="tool-price">$10/mo</div>
-                    <div class="tool-visit" data-i18n="btn_visit">Visit <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                    <div class="tool-visit" data-i18n="btn_visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
                 </div>
             </a>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="toolsEmpty">
+                <div class="empty-state-icon"><i class="fa-solid fa-robot"></i></div>
+                <h3>No tools found</h3>
+                <p>Try a different filter or search term.</p>
+            </div>
+        </div>
+    </section>
+
         </div>
     </section>
 
     <footer>
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-text">AI ContentBase</a>
+                    <p>แพลตฟอร์มรวบรวม AI Tools คอร์สเรียน และข่าวสาร AI ที่ครบที่สุดในไทย</p>
+                    <div class="socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="tools.html">AI Tools</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
-                <div data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</div>
+                <span data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</span>
+                <span>Built with <i class="fa-solid fa-heart" style="color:#a855f7;font-size:0.8rem;"></i> for the AI community</span>
             </div>
         </div>
     </footer>

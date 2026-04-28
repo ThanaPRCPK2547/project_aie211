@@ -1,4 +1,93 @@
+// ─── Toast Notification ───────────────────────────────────────────────────────
+function showToast(title, msg, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+    const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `
+        <i class="fa-solid ${icons[type] || icons.info} toast-icon"></i>
+        <div class="toast-body"><div class="toast-title">${title}</div><div class="toast-msg">${msg}</div></div>
+        <button class="toast-close"><i class="fa-solid fa-xmark"></i></button>
+    `;
+    container.appendChild(toast);
+    toast.querySelector('.toast-close').addEventListener('click', () => removeToast(toast));
+    setTimeout(() => removeToast(toast), 4000);
+}
+
+function removeToast(toast) {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+}
+
+// ─── Search Overlay ────────────────────────────────────────────────────────────
+function initSearchOverlay() {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchOverlayInput');
+    const toggle = document.getElementById('searchToggle');
+    const closeBtn = document.getElementById('searchOverlayClose');
+    if (!overlay) return;
+
+    function openSearch() {
+        overlay.classList.add('active');
+        setTimeout(() => input && input.focus(), 50);
+    }
+
+    function closeSearch() {
+        overlay.classList.remove('active');
+        if (input) input.value = '';
+        filterAllCards('');
+    }
+
+    if (toggle) toggle.addEventListener('click', openSearch);
+    if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeSearch(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+        if (e.key === 'k' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openSearch(); }
+    });
+
+    if (input) {
+        input.addEventListener('input', () => filterAllCards(input.value.trim().toLowerCase()));
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { closeSearch(); }
+        });
+    }
+}
+
+// ─── Filter + Empty State ──────────────────────────────────────────────────────
+function filterAllCards(query) {
+    const grids = document.querySelectorAll('.grid-3');
+    grids.forEach(grid => {
+        const cards = grid.querySelectorAll('.card');
+        let visible = 0;
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            const show = !query || text.includes(query);
+            card.style.display = show ? 'flex' : 'none';
+            if (show) { card.style.animation = 'fadeIn 0.3s ease forwards'; visible++; }
+        });
+        const emptyState = grid.querySelector('.empty-state');
+        if (emptyState) emptyState.classList.toggle('visible', visible === 0);
+    });
+}
+
+// ─── Mobile Nav ────────────────────────────────────────────────────────────────
+function initMobileNav() {
+    const hamburger = document.getElementById('navHamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    if (!hamburger || !mobileNav) return;
+    hamburger.addEventListener('click', () => {
+        mobileNav.classList.toggle('open');
+        const icon = hamburger.querySelector('i');
+        icon.className = mobileNav.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initSearchOverlay();
+    initMobileNav();
     const PRODUCT_STORAGE_KEY = 'aiContentBase_products';
     const LEGACY_STORAGE_KEY = 'aiContentBase_items';
     const USD_TO_THB_RATE = 36;
@@ -30,19 +119,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                const cards = document.querySelectorAll('.grid-3 .card');
                 const filterValue = (btn.dataset.filter || btn.textContent || '').trim().toLowerCase();
                 const showAll = ['all', 'latest', 'ทั้งหมด'].includes(filterValue);
 
-                cards.forEach(card => {
-                    const cardText = (card.textContent || '').toLowerCase();
-                    const matches = showAll || cardText.includes(filterValue);
+                // Find the closest grid to these filter buttons
+                const filtersEl = btn.closest('.filters');
+                const grid = filtersEl ? filtersEl.nextElementSibling : document.querySelector('.grid-3');
+                if (!grid) return;
 
+                const cards = grid.querySelectorAll('.card');
+                let visible = 0;
+
+                cards.forEach(card => {
+                    const category = (card.dataset.category || card.textContent || '').toLowerCase();
+                    const matches = showAll || category.includes(filterValue);
                     card.style.display = matches ? 'flex' : 'none';
-                    if (matches) {
-                        card.style.animation = 'fadeIn 0.4s ease forwards';
-                    }
+                    if (matches) { card.style.animation = 'fadeIn 0.4s ease forwards'; visible++; }
                 });
+
+                const emptyState = grid.querySelector('.empty-state');
+                if (emptyState) emptyState.classList.toggle('visible', visible === 0);
             });
         });
     }
@@ -72,8 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.innerHTML = '<i class="fa-solid fa-check"></i> Enrolled!';
                     btn.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
                     btn.style.color = '#86efac';
-
-                    alert(`Congratulations! You have successfully enrolled in: ${courseTitle}`);
+                    showToast('Enrolled!', `You have successfully enrolled in: ${courseTitle}`, 'success');
                 }, 1000);
             });
         });

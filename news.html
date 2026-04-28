@@ -12,6 +12,21 @@
 
 <body>
 
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-inner">
+            <div class="search-overlay-input-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="search-overlay-input" id="searchOverlayInput" placeholder="Search news...">
+                <button class="search-overlay-close" id="searchOverlayClose">ESC</button>
+            </div>
+            <p class="search-hint">Press <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">Enter</kbd> to search &nbsp;·&nbsp; <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">ESC</kbd> to close</p>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
     <nav>
         <div class="nav-left">
             <a href="index.html" class="logo-text">AI ContentBase</a>
@@ -23,16 +38,26 @@
             <a href="news.html" class="active" data-i18n="nav_news">News</a>
         </div>
         <div class="nav-right">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle"></i>
             <select class="lang-switch">
                 <option value="en">EN</option>
                 <option value="th">TH</option>
             </select>
             <button class="btn-primary" data-i18n="nav_get_started">Get Started</button>
+            <button class="nav-hamburger" id="navHamburger"><i class="fa-solid fa-bars"></i></button>
         </div>
     </nav>
 
-    <section class="container" style="padding-top: 60px;">
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="index.html" data-i18n="nav_home">Home</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="courses.html" data-i18n="nav_courses">Courses</a>
+        <a href="news.html" class="active" data-i18n="nav_news">News</a>
+    </div>
+
+    <section class="page-section">
+        <div class="container">
         <div class="section-header-left">
             <div>
                 <h2>AI <span class="text-gradient">News & Updates</span></h2>
@@ -41,55 +66,123 @@
         </div>
 
         <div class="filters filters-left">
-            <button class="filter-btn active">Latest</button>
-            <button class="filter-btn">Model Updates</button>
-            <button class="filter-btn">Industry</button>
-            <button class="filter-btn">Tutorials</button>
+            <button class="filter-btn active" data-filter="all">Latest</button>
+            <button class="filter-btn" data-filter="model updates">Model Updates</button>
+            <button class="filter-btn" data-filter="industry">Industry</button>
+            <button class="filter-btn" data-filter="tutorials">Tutorials</button>
         </div>
 
-        <div class="grid-3">
-            <a href="#" class="card">
+        <div class="grid-3" id="newsGrid">
+            <a href="#" class="card" data-category="model updates">
                 <div class="card-header">
                     <div class="card-icon" style="background:#3b82f6;"><i class="fa-solid fa-newspaper"></i></div>
                 </div>
                 <div class="card-meta">
-                    <span class="tag tag-blue">Model Updates</span><span>5 min read</span>
+                    <span class="tag tag-blue">Model Updates</span>
+                    <span style="display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock" style="font-size:0.75rem;"></i> 5 min read</span>
                 </div>
                 <h3 class="card-title">OpenAI Announces GPT-5</h3>
-                <p class="card-desc">The next generation of AI models is here, bringing unprecedented reasoning
-                    capabilities and multimodal features.</p>
+                <p class="card-desc">The next generation of AI models is here, bringing unprecedented reasoning capabilities and multimodal features.</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-muted);">
+                    <span style="display:flex;align-items:center;gap:6px;">
+                        <div style="width:22px;height:22px;border-radius:50%;background:#3b82f6;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:white;">S</div>
+                        Sam Altman
+                    </span>
+                    <span>Apr 20, 2026</span>
+                </div>
             </a>
 
-            <a href="#" class="card">
+            <a href="#" class="card" data-category="industry">
                 <div class="card-header">
                     <div class="card-icon" style="background:#a855f7;"><i class="fa-solid fa-bolt"></i></div>
                 </div>
                 <div class="card-meta">
-                    <span class="tag tag-purple">Industry</span><span>3 min read</span>
+                    <span class="tag tag-purple">Industry</span>
+                    <span style="display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock" style="font-size:0.75rem;"></i> 3 min read</span>
                 </div>
                 <h3 class="card-title">Anthropic Releases Claude 3.5 Opus</h3>
-                <p class="card-desc">The new flagship model from Anthropic sets new benchmarks across coding, creative
-                    writing, and analysis.</p>
+                <p class="card-desc">The new flagship model from Anthropic sets new benchmarks across coding, creative writing, and analysis.</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-muted);">
+                    <span style="display:flex;align-items:center;gap:6px;">
+                        <div style="width:22px;height:22px;border-radius:50%;background:#a855f7;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:white;">D</div>
+                        Dario Amodei
+                    </span>
+                    <span>Apr 18, 2026</span>
+                </div>
             </a>
 
-            <a href="#" class="card">
+            <a href="#" class="card" data-category="tutorials">
                 <div class="card-header">
                     <div class="card-icon" style="background:#10b981;"><i class="fa-solid fa-code"></i></div>
                 </div>
                 <div class="card-meta">
-                    <span class="tag tag-green">Tutorials</span><span>10 min read</span>
+                    <span class="tag tag-green">Tutorials</span>
+                    <span style="display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock" style="font-size:0.75rem;"></i> 10 min read</span>
                 </div>
                 <h3 class="card-title">Building AI Apps with LangChain</h3>
-                <p class="card-desc">A comprehensive guide to orchestrating LLMs and building complex AI workflows using
-                    LangChain and Python.</p>
+                <p class="card-desc">A comprehensive guide to orchestrating LLMs and building complex AI workflows using LangChain and Python.</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:0.8rem;color:var(--text-muted);">
+                    <span style="display:flex;align-items:center;gap:6px;">
+                        <div style="width:22px;height:22px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;color:white;">A</div>
+                        AI ContentBase
+                    </span>
+                    <span>Apr 15, 2026</span>
+                </div>
             </a>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="newsEmpty">
+                <div class="empty-state-icon"><i class="fa-solid fa-newspaper"></i></div>
+                <h3>No articles found</h3>
+                <p>Try a different filter or search term.</p>
+            </div>
+        </div>
+    </section>
+
         </div>
     </section>
 
     <footer>
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-text">AI ContentBase</a>
+                    <p>แพลตฟอร์มรวบรวม AI Tools คอร์สเรียน และข่าวสาร AI ที่ครบที่สุดในไทย</p>
+                    <div class="socials">
+                        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="tools.html">AI Tools</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="news.html">News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
-                <div data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</div>
+                <span data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</span>
+                <span>Built with <i class="fa-solid fa-heart" style="color:#a855f7;font-size:0.8rem;"></i> for the AI community</span>
             </div>
         </div>
     </footer>

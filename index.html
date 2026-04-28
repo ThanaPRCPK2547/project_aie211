@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,91 +8,449 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <nav>
-        <div class="nav-left">
-            <a href="index.html" class="logo-text">AI ContentBase</a>
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-overlay-inner">
+        <div class="search-overlay-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="search-overlay-input" id="searchOverlayInput" placeholder="Search tools, courses, news...">
+            <button class="search-overlay-close" id="searchOverlayClose">ESC</button>
         </div>
-        <div class="nav-center">
-            <a href="index.html" class="active" data-i18n="nav_home">Home</a>
-            <a href="tools.html" data-i18n="nav_tools">Tools</a>
-            <a href="courses.html" data-i18n="nav_courses">Courses</a>
-            <a href="news.html" data-i18n="nav_news">News</a>
-        </div>
-        <div class="nav-right">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <select class="lang-switch">
-                <option value="en">EN</option>
-                <option value="th">TH</option>
-            </select>
-            <a href="login.html" style="font-size: 0.9rem; font-weight: 500; transition: color 0.2s;"
-                data-i18n="nav_login">Login</a>
-            <button class="btn-primary" data-i18n="nav_get_started">Get Started</button>
-        </div>
-    </nav>
+        <p class="search-hint">Press <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">Cmd+K</kbd> to open &nbsp;·&nbsp; <kbd style="background:var(--surface-light);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-size:0.8rem;">ESC</kbd> to close</p>
+    </div>
+</div>
 
-    <header class="hero">
-        <div class="hero-bg-grid"></div>
-        <div class="container">
-            <div class="pill-badge" data-i18n="hero_pill">
-                <i class="fa-solid fa-bolt"></i> The #1 AI Content Platform
-            </div>
-            <h1>Explore the <span class="text-gradient">Future of AI</span><br>Content</h1>
-            <p data-i18n="hero_desc">Discover thousands of AI tools, articles, online courses, stunning AI art, and the
-                latest news — all in
-                one powerful hub.</p>
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
 
-            <div class="hero-btns">
-                <a href="tools.html" class="btn-large btn-gradient" data-i18n="hero_btn_browse">Browse Content &nbsp;<i
-                        class="fa-solid fa-arrow-right"></i></a>
-                <a href="courses.html" class="btn-large btn-outline" data-i18n="hero_btn_buy"><i
-                        class="fa-solid fa-book-open"></i>&nbsp; Buy a
-                    Course</a>
-            </div>
+<!-- Navigation -->
+<nav>
+    <div class="nav-left">
+        <a href="index.html" class="logo-text">AI ContentBase</a>
+    </div>
+    <div class="nav-center">
+        <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+        <a href="tools.html" data-i18n="nav_tools">Tools</a>
+        <a href="courses.html" data-i18n="nav_courses">Courses</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+    </div>
+    <div class="nav-right">
+        <i class="fa-solid fa-magnifying-glass search-icon" id="searchToggle"></i>
+        <select class="lang-switch">
+            <option value="en">EN</option>
+            <option value="th">TH</option>
+        </select>
+        <a href="login.html" style="font-size:0.9rem;font-weight:500;" data-i18n="nav_login">Login</a>
+        <button class="btn-primary" onclick="location.href='register.html'" data-i18n="nav_get_started">Get Started</button>
+        <button class="nav-hamburger" id="navHamburger"><i class="fa-solid fa-bars"></i></button>
+    </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="index.html" class="active" data-i18n="nav_home">Home</a>
+    <a href="tools.html" data-i18n="nav_tools">Tools</a>
+    <a href="courses.html" data-i18n="nav_courses">Courses</a>
+    <a href="news.html" data-i18n="nav_news">News</a>
+    <a href="login.html" data-i18n="nav_login">Login</a>
+</div>
+
+<!-- Hero -->
+<header class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="container">
+        <div class="pill-badge" data-i18n="hero_pill">
+            <i class="fa-solid fa-bolt"></i> The #1 AI Content Platform
         </div>
-    </header>
+        <h1>Explore the <span class="text-gradient">Future of AI</span><br>Content</h1>
+        <p data-i18n="hero_desc">Discover thousands of AI tools, articles, online courses, and the latest news — all in one powerful hub.</p>
+        <div class="hero-btns">
+            <a href="tools.html" class="btn-large btn-gradient" data-i18n="hero_btn_browse">Browse Content &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+            <a href="courses.html" class="btn-large btn-outline" data-i18n="hero_btn_buy"><i class="fa-solid fa-book-open"></i>&nbsp; Buy a Course</a>
+        </div>
+    </div>
+</header>
 
-    <section class="container">
+<!-- Stats -->
+<section class="container">
+    <div class="stats-section">
+        <div class="stat-item">
+            <div class="stat-item-value">10K+</div>
+            <div class="stat-item-label">AI Tools Listed</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-item-value">50K+</div>
+            <div class="stat-item-label">Active Learners</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-item-value">200+</div>
+            <div class="stat-item-label">Expert Courses</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-item-value">4.9★</div>
+            <div class="stat-item-label">Average Rating</div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Content -->
+<section class="page-section">
+    <div class="container">
         <div class="section-header">
             <h2 data-i18n="feat_title">Featured <span class="text-gradient-alt">Content</span></h2>
-            <p data-i18n="feat_desc">Hand-picked articles, tools, and guides from across the AI landscape.</p>
+            <p data-i18n="feat_desc">Hand-picked courses, tools, and news from across the AI landscape.</p>
         </div>
-
         <div class="grid-3">
-            <a href="tools.html" class="card">
-                <div class="card-header">
-                    <div class="card-icon" style="background:#3b82f6;"><i class="fa-solid fa-robot"></i></div>
+            <a href="courses.html" class="card tool-card" style="position:relative;">
+                <div class="discount-badge">-40%</div>
+                <div class="course-thumb" style="background:linear-gradient(135deg,#f59e0b22,#f59e0b44);">
+                    <i class="fa-solid fa-graduation-cap" style="color:#f59e0b;"></i>
                 </div>
-                <div class="card-meta">
-                    <span class="tag tag-purple">AI Tool</span><span>8 min read</span>
+                <div class="card-header" style="margin-bottom:10px;">
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">Prompt Engineering Masterclass</div>
+                        <div class="tool-cat">Course · Prompt Engineering</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <h3 class="card-title">ChatGPT Pro Workflows</h3>
-                <p class="card-desc">Advanced prompting techniques and automation workflows to 10x your productivity.
-                </p>
+                <p class="tool-desc">From beginner to expert — learn how to craft perfect prompts for any AI model.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
+                    <span class="tool-tag">Beginner Friendly</span>
+                    <span class="tool-tag">Certificate</span>
+                </div>
+                <div class="tool-footer">
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-original">$50.00</span>
+                            <span class="price-current tool-price">$30.00</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 4,821 students</div>
+                    </div>
+                    <div class="tool-visit enroll-btn">Enroll <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
             </a>
-            <a href="courses.html" class="card">
-                <div class="card-header">
-                    <div class="card-icon" style="background:#f59e0b;"><i class="fa-solid fa-graduation-cap"></i></div>
+            <a href="tools.html" class="card tool-card">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#10b98122,#10b98144);">
+                    <i class="fa-solid fa-robot" style="color:#10b981;"></i>
                 </div>
-                <div class="card-meta">
-                    <span class="tag tag-blue">Course</span><span>Intermediate</span>
+                <div class="card-header" style="margin-bottom:10px;">
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">ChatGPT</div>
+                        <div class="tool-cat">AI Tool · Chatbot</div>
+                    </div>
+                    <div class="tool-rating"><i class="fa-solid fa-star"></i> 4.9</div>
                 </div>
-                <h3 class="card-title">Prompt Engineering Masterclass</h3>
-                <p class="card-desc">From beginner to expert — learn how to craft perfect prompts for any AI model.</p>
+                <p class="tool-desc">The world's most popular AI chatbot for writing, coding, analysis, and more.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
+                    <span class="tool-tag">Writing</span>
+                    <span class="tool-tag">Coding</span>
+                </div>
+                <div class="tool-footer">
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-current tool-price">Free / $20/mo</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-users"></i> 100M+ users</div>
+                    </div>
+                    <div class="tool-visit">Visit <i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                </div>
+            </a>
+            <a href="news.html" class="card tool-card">
+                <div class="course-thumb" style="background:linear-gradient(135deg,#3b82f622,#3b82f644);">
+                    <i class="fa-solid fa-newspaper" style="color:#3b82f6;"></i>
+                </div>
+                <div class="card-header" style="margin-bottom:10px;">
+                    <div class="tool-title-wrap">
+                        <div class="tool-title">OpenAI Announces GPT-5</div>
+                        <div class="tool-cat">News · Model Updates</div>
+                    </div>
+                    <div class="tool-rating" style="color:var(--text-muted);font-size:0.78rem;"><i class="fa-regular fa-clock"></i> 5 min</div>
+                </div>
+                <p class="tool-desc">The next generation of AI models with unprecedented reasoning and multimodal features.</p>
+                <div class="tool-tags" style="margin-bottom:12px;">
+                    <span class="tool-tag">Free</span>
+                    <span class="tool-tag">Apr 20, 2026</span>
+                </div>
+                <div class="tool-footer">
+                    <div>
+                        <div class="price-wrap">
+                            <span class="price-current" style="color:#60a5fa;">Free to Read</span>
+                        </div>
+                        <div class="student-count"><i class="fa-solid fa-eye"></i> 28,400 views</div>
+                    </div>
+                    <div class="tool-visit">Read <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
             </a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-bottom">
-                <div data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</div>
+<!-- News -->
+<section class="page-section">
+    <div class="container">
+        <div class="section-header-left">
+            <div>
+                <h2>ข่าวสาร <span class="text-gradient">AI ล่าสุด</span></h2>
+                <p>อัปเดตความเคลื่อนไหวในวงการ AI ทุกสัปดาห์</p>
+            </div>
+            <a href="news.html" class="view-all">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="grid-3">
+            <a href="news.html" class="news-card">
+                <div class="card-meta" style="margin-bottom:12px;">
+                    <span class="tag tag-blue">Model Updates</span>
+                    <span style="font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock"></i> 5 min</span>
+                </div>
+                <h3 class="card-title">OpenAI ประกาศเปิดตัว GPT-5</h3>
+                <p class="card-desc" style="margin-bottom:16px;">โมเดลรุ่นใหม่ล่าสุดที่มาพร้อมความสามารถด้าน reasoning และ multimodal ที่เหนือกว่าเดิม</p>
+                <div class="news-footer">
+                    <div class="news-author">
+                        <div class="avatar-sm" style="background:#3b82f6;">S</div>
+                        Sam Altman
+                    </div>
+                    <span>Apr 20, 2026</span>
+                </div>
+            </a>
+            <a href="news.html" class="news-card">
+                <div class="card-meta" style="margin-bottom:12px;">
+                    <span class="tag tag-purple">Industry</span>
+                    <span style="font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock"></i> 3 min</span>
+                </div>
+                <h3 class="card-title">Anthropic เปิดตัว Claude 3.5 Opus</h3>
+                <p class="card-desc" style="margin-bottom:16px;">โมเดล flagship ตัวใหม่จาก Anthropic ทำลายสถิติด้าน coding, creative writing และ analysis</p>
+                <div class="news-footer">
+                    <div class="news-author">
+                        <div class="avatar-sm" style="background:#a855f7;">D</div>
+                        Dario Amodei
+                    </div>
+                    <span>Apr 18, 2026</span>
+                </div>
+            </a>
+            <a href="news.html" class="news-card">
+                <div class="card-meta" style="margin-bottom:12px;">
+                    <span class="tag tag-green">Tutorials</span>
+                    <span style="font-size:0.78rem;color:var(--text-muted);display:flex;align-items:center;gap:4px;"><i class="fa-regular fa-clock"></i> 10 min</span>
+                </div>
+                <h3 class="card-title">สร้าง AI App ด้วย LangChain</h3>
+                <p class="card-desc" style="margin-bottom:16px;">คู่มือครบจบสำหรับการ orchestrate LLMs และสร้าง AI workflow ที่ซับซ้อนด้วย LangChain + Python</p>
+                <div class="news-footer">
+                    <div class="news-author">
+                        <div class="avatar-sm" style="background:#10b981;">A</div>
+                        AI ContentBase
+                    </div>
+                    <span>Apr 15, 2026</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Knowledge -->
+<section class="page-section">
+    <div class="container">
+        <div class="section-header-left">
+            <div>
+                <h2>ความรู้ <span class="text-gradient-alt">AI พื้นฐาน</span></h2>
+                <p>บทความและคู่มือสำหรับผู้เริ่มต้นจนถึงระดับสูง</p>
+            </div>
+            <a href="news.html" class="view-all">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="knowledge-row">
+            <a href="news.html" class="knowledge-card">
+                <div class="knowledge-icon" style="background:rgba(168,85,247,0.12);color:#a855f7;"><i class="fa-solid fa-brain"></i></div>
+                <div>
+                    <div class="knowledge-title">LLM คืออะไร? อธิบายแบบเข้าใจง่าย</div>
+                    <div class="knowledge-meta">Beginner · 6 min read</div>
+                </div>
+            </a>
+            <a href="news.html" class="knowledge-card">
+                <div class="knowledge-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div>
+                    <div class="knowledge-title">Prompt Engineering 101</div>
+                    <div class="knowledge-meta">Beginner · 8 min read</div>
+                </div>
+            </a>
+            <a href="news.html" class="knowledge-card">
+                <div class="knowledge-icon" style="background:rgba(34,197,94,0.12);color:#22c55e;"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <div class="knowledge-title">AI Agent vs Chatbot ต่างกันอย่างไร?</div>
+                    <div class="knowledge-meta">Intermediate · 5 min read</div>
+                </div>
+            </a>
+            <a href="news.html" class="knowledge-card">
+                <div class="knowledge-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b;"><i class="fa-solid fa-database"></i></div>
+                <div>
+                    <div class="knowledge-title">RAG คืออะไร และทำงานอย่างไร?</div>
+                    <div class="knowledge-meta">Advanced · 12 min read</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio -->
+<section class="page-section">
+    <div class="container">
+        <div class="section-header-left">
+            <div>
+                <h2>ผลงาน <span class="text-gradient">จากผู้เรียน</span></h2>
+                <p>ตัวอย่างโปรเจกต์จริงที่สร้างด้วย AI จากผู้เรียนของเรา</p>
             </div>
         </div>
-    </footer>
-    <script src="script.js"></script>
-</body>
+        <div class="grid-3">
+            <div class="portfolio-card">
+                <div class="portfolio-thumb" style="background:linear-gradient(135deg,#a855f7,#3b82f6);"><i class="fa-solid fa-robot" style="color:white;font-size:2.5rem;"></i></div>
+                <div class="portfolio-body">
+                    <div class="portfolio-title">AI Customer Support Bot</div>
+                    <div class="portfolio-desc">สร้างด้วย LangChain + GPT-4 · ลด support ticket 60%</div>
+                    <div class="portfolio-author">
+                        <div class="avatar-sm" style="background:#a855f7;">P</div>
+                        Pattaraporn S. · Prompt Engineering Masterclass
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card">
+                <div class="portfolio-thumb" style="background:linear-gradient(135deg,#ec4899,#f97316);"><i class="fa-solid fa-palette" style="color:white;font-size:2.5rem;"></i></div>
+                <div class="portfolio-body">
+                    <div class="portfolio-title">AI Brand Identity Generator</div>
+                    <div class="portfolio-desc">สร้างด้วย Midjourney + Stable Diffusion · 200+ clients</div>
+                    <div class="portfolio-author">
+                        <div class="avatar-sm" style="background:#ec4899;">N</div>
+                        Nattawut K. · AI Art Generation
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-card">
+                <div class="portfolio-thumb" style="background:linear-gradient(135deg,#10b981,#3b82f6);"><i class="fa-solid fa-chart-line" style="color:white;font-size:2.5rem;"></i></div>
+                <div class="portfolio-body">
+                    <div class="portfolio-title">Automated Data Pipeline</div>
+                    <div class="portfolio-desc">สร้างด้วย Python + AI · ประหยัดเวลา 40 ชม./สัปดาห์</div>
+                    <div class="portfolio-author">
+                        <div class="avatar-sm" style="background:#10b981;">S</div>
+                        Siriporn T. · Python for AI & Data Science
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- Reviews -->
+<section class="page-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>เสียงจาก <span class="text-gradient-alt">ผู้เรียน</span></h2>
+            <p>ความคิดเห็นจริงจากผู้เรียนกว่า 50,000 คน</p>
+        </div>
+        <div class="grid-3">
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"คอร์ส Prompt Engineering เปลี่ยนชีวิตการทำงานของผมไปเลย ตอนนี้ทำงานได้เร็วขึ้น 3 เท่า และยังได้ใบ certificate ไปใส่ใน LinkedIn ด้วย"</p>
+                <div class="review-author">
+                    <div class="avatar-md" style="background:linear-gradient(135deg,#a855f7,#3b82f6);">A</div>
+                    <div>
+                        <div class="review-name">Arthit M.</div>
+                        <div class="review-role">Product Manager · Bangkok</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"เนื้อหาอัปเดตตลอด ผู้สอนอธิบายได้เข้าใจง่ายมาก เรียนจบแล้วนำไปใช้งานได้จริงทันที ราคาคุ้มค่ามากเมื่อเทียบกับที่อื่น"</p>
+                <div class="review-author">
+                    <div class="avatar-md" style="background:linear-gradient(135deg,#ec4899,#f97316);">W</div>
+                    <div>
+                        <div class="review-name">Wanida P.</div>
+                        <div class="review-role">UX Designer · Chiang Mai</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">"Deep Learning Specialization ช่วยให้ผมได้งานใหม่ที่เงินเดือนสูงขึ้น 40% ภายใน 3 เดือนหลังเรียนจบ แนะนำมากครับ"</p>
+                <div class="review-author">
+                    <div class="avatar-md" style="background:linear-gradient(135deg,#10b981,#3b82f6);">K</div>
+                    <div>
+                        <div class="review-name">Kritsada N.</div>
+                        <div class="review-role">ML Engineer · Remote</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="page-section">
+    <div class="container">
+        <div class="cta-banner">
+            <div class="cta-banner-glow"></div>
+            <div class="pill-badge" style="display:inline-flex;margin-bottom:20px;">
+                <i class="fa-solid fa-rocket"></i> เริ่มต้นวันนี้ ฟรี!
+            </div>
+            <h2>พร้อมยกระดับทักษะ AI<br><span class="text-gradient">ของคุณแล้วหรือยัง?</span></h2>
+            <p>เข้าร่วมกับผู้เรียนกว่า 50,000 คน เรียนรู้จากผู้เชี่ยวชาญจริง ได้ใบ certificate และนำไปใช้งานได้ทันที</p>
+            <div class="cta-btns">
+                <a href="courses.html" class="btn-large btn-gradient">ดูคอร์สทั้งหมด &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+                <a href="register.html" class="btn-large btn-outline"><i class="fa-solid fa-user-plus"></i>&nbsp; สมัครฟรี</a>
+            </div>
+            <div class="cta-checklist">
+                <span class="cta-check"><i class="fa-solid fa-check"></i> ไม่ต้องใช้บัตรเครดิต</span>
+                <span class="cta-check"><i class="fa-solid fa-check"></i> เรียนได้ทุกที่ทุกเวลา</span>
+                <span class="cta-check"><i class="fa-solid fa-check"></i> รับ certificate ทันทีเมื่อเรียนจบ</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="index.html" class="logo-text">AI ContentBase</a>
+                <p>แพลตฟอร์มรวบรวม AI Tools คอร์สเรียน และข่าวสาร AI ที่ครบที่สุดในไทย</p>
+                <div class="socials">
+                    <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-btn"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="tools.html">AI Tools</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Account</h4>
+                <ul>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span data-i18n="footer_rights">&copy; 2026 AI ContentBase. All rights reserved.</span>
+            <span>Built with <i class="fa-solid fa-heart" style="color:#a855f7;font-size:0.8rem;"></i> for the AI community</span>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
 </html>
